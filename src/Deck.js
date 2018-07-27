@@ -112,7 +112,11 @@ class Deck extends React.Component {
             }
             return (
                 //Rendering other cards
-                <Animated.View style= {styles.cardStyle}>
+                <Animated.View 
+                    key={item.id}
+                    //set card cascade effect
+                    style= {[styles.cardStyle, {top: 10 * ( i - this.state.index)}]}
+                >
                     {this.props.renderCard(item)}
                 </Animated.View>
             );
