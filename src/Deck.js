@@ -111,9 +111,10 @@ class Deck extends React.Component {
                 );
             }
             return (
-                <View style= {styles.cardStyle}>
+                //Rendering other cards
+                <Animated.View style= {styles.cardStyle}>
                     {this.props.renderCard(item)}
-                </View>
+                </Animated.View>
             );
         }).reverse();
     }
