@@ -112,7 +112,7 @@ class Deck extends React.Component {
             }
             return (
                 <View style= {styles.cardStyle}>
-                    this.props.renderCard(item)
+                    {this.props.renderCard(item)}
                 </View>
             );
         }).reverse();
