@@ -103,15 +103,19 @@ class Deck extends React.Component {
                     <Animated.View 
                         //Passed object, take from there
                         key={item.id}
-                        style={this.getCardStyle()}
+                        style={[this.getCardStyle(), styles.cardStyle]}
                         {...this.state.panResponder.panHandlers}
                     >
                         {this.props.renderCard(item)}
                     </Animated.View>
                 );
             }
-            return this.props.renderCard(item)
-        });
+            return (
+                <View style= {styles.cardStyle}>
+                    this.props.renderCard(item)
+                </View>
+            );
+        }).reverse();
     }
     render() {
         return (
@@ -121,5 +125,12 @@ class Deck extends React.Component {
         );
     }
 }
+
+const styles = {
+    cardStyle: {
+        position: 'absolute',
+        width: SCREEN_WIDTH
+    }
+};
 
 export default Deck;
