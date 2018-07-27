@@ -27,6 +27,22 @@ class Deck extends React.Component {
 
         this.state = { panResponder, position };
     }
+
+    getCardStyle() {
+        const { position } = this.state;
+        //contains info about XY from Animated.ValueXY
+        const rotate = position.x.interpolate({
+            inputRange: [-500, 0, 500],
+            outputRange: ['-120deg', '0deg', '120deg']
+        })
+        return {
+            //getLayotu resturns object, spread properties
+            //on return object, add on additional custom property
+            ...position.getLayout(),
+            transform: [{ rotate: rotate }]
+        }
+    }
+
     renderCards() {
         //map function called with index
         return this.props.data.map((item, index) => {
@@ -35,7 +51,7 @@ class Deck extends React.Component {
                     <Animated.View 
                         //Passed object, take from there
                         key={item.id}
-                        style={this.state.position.getLayout()}
+                        style={this.getCardStyle()}
                         {...this.state.panResponder.panHandlers}
                     >
                         {this.props.renderCard(item)}
