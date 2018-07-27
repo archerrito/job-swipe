@@ -11,6 +11,14 @@ const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
 const SWIPE_OUT_DURATION = 250;
 
 class Deck extends React.Component {
+    //when deck comp created, will look at props provided
+    //and if not provided whats defined here,
+    //will auto assign to default
+    static defaultProps = {
+        //if not passed in, will assign
+        onSwipeRight: () => {},
+        onSwipeLeft: () => {}
+    }
     constructor(props) {
         super(props);
 
@@ -54,6 +62,8 @@ class Deck extends React.Component {
 
         //detects when user has swiped a card
         direction === 'right' ? onSwipeRight(item) : onSwipeLeft(item);
+        this.state.position.setValue({ x: 0, y: 0 });
+        this.setState({ index: this.state.index + 1 });
     }
 
     resetPosition() {
@@ -80,8 +90,11 @@ class Deck extends React.Component {
 
     renderCards() {
         //map function called with index
-        return this.props.data.map((item, index) => {
-            if (index === 0) {
+        return this.props.data.map((item, i) => {
+            if (i < this.state.index) {
+                return  null;
+            }
+            if (i === this.state.index) {
                 return (
                     <Animated.View 
                         //Passed object, take from there
