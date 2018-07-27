@@ -23,12 +23,19 @@ class Deck extends React.Component {
             },
             //called, when presses, drags, removes finger
             //finalized callback
-            onPanResponderRelease: () => {}
-
+            onPanResponderRelease: () => {
+                this.resetPosition();
+            }
         });
 
 
         this.state = { panResponder, position };
+    }
+
+    resetPosition() {
+        Animated.spring(this.state.position, {
+            toValue: { x: 0, y: 0 }
+        }).start();
     }
 
     getCardStyle() {
