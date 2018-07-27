@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { 
     View, 
     Animated,
-    PanResponder 
+    PanResponder,
+    Dimensions
 } from 'react-native';
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class Deck extends React.Component {
     constructor(props) {
@@ -32,7 +35,8 @@ class Deck extends React.Component {
         const { position } = this.state;
         //contains info about XY from Animated.ValueXY
         const rotate = position.x.interpolate({
-            inputRange: [-500, 0, 500],
+            //relates first scale to second scale
+            inputRange: [-SCREEN_WIDTH * 1.5, 0, SCREEN_WIDTH * 1.5],
             outputRange: ['-120deg', '0deg', '120deg']
         })
         return {
