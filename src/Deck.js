@@ -3,7 +3,9 @@ import {
     View, 
     Animated,
     PanResponder,
-    Dimensions
+    Dimensions,
+    LayoutAnimation,
+    UIManager
 } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -46,6 +48,21 @@ class Deck extends React.Component {
 
 
         this.state = { panResponder, position, index: 0 };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        //looks at data array on incoming data, and existing set of data
+        //not objects, exact same array
+        if (nextProps.data !== this.props.data) {
+            this.setState({ index: 0 });
+        }
+    }
+
+    componentWillUpdate() {
+        //if exists, call with value of true
+        UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+        //tells React needs to animate changes to component
+        LayoutAnimation.spring();
     }
 
     forceSwipe(direction) {
